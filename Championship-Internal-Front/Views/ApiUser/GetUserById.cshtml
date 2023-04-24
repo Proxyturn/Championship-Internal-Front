@@ -1,0 +1,120 @@
+﻿@model Championship_Internal_Front.Models.User
+
+@{
+    ViewData["Title"] = "GetUserById";
+}
+
+
+<section class="content-wrapper">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <h1></h1>
+        <p></p>
+        <div class="card card-info">
+          <div class="card-header">
+            <h3 class="card-title">Detalhes de Usuário</h3>
+          </div>
+          <div class="card-body">
+            <div class="form-group">
+              <label for="title">Nome</label>
+              <input contenteditable="false" type="text" class="form-control title" value="@Html.DisplayFor(modelItem => Model.Name)">
+            </div>
+            <div class="form-group">
+              <label for="description">Idade</label>
+              <textarea contenteditable="false" id="number" class="form-control description" rows="4" value="@Html.DisplayFor(modelItem => Model.Age)"></textarea>
+            </div>
+            <div class="form-group">
+              <label for="start_date">Data de Início</label>
+              <input contenteditable="false" type="email" class="form-control start-date" value="@Html.DisplayFor(modelItem => Model.Email)">
+            </div>
+            <div class="form-group">
+              <label for="total_phases">Senha</label>
+              <output contenteditable="false" type="password" class="form-control phases" value="@Html.DisplayFor(modelItem => Model.Password)">"@Html.DisplayFor(modelItem => Model.Password)"</output>
+            </div>
+            <div class="col-12">
+              <a asp-controller="ApiUser" asp-action="DeleteUser" href="#" class="btn btn-danger">Deletar Usuário</a>
+              <input asp-controller="ApiUser" asp-action="EditUser" type="submit" value="Editar Usuário" class="btn btn-warning">
+            </div>
+                  <!-- /.input group -->
+                <!-- /.form group -->
+        
+                <!-- time Picker -->
+                @*<div class="bootstrap-timepicker">
+                  <div class="form-group">
+                    <label>Time picker:</label>
+        
+                    <div class="input-group date" id="timepicker" data-target-input="nearest">
+                      <input type="text" class="form-control datetimepicker-input" data-target="#timepicker"/>
+                      <div class="input-group-append" data-target="#timepicker" data-toggle="datetimepicker">
+                          <div class="input-group-text"><i class="far fa-clock"></i></div>
+                      </div>
+                      </div>
+                    <!-- /.input group -->
+                  </div>*@
+                  <!-- /.form group -->
+          </div>
+        </div>
+      </div>
+    </div>       <!-- /.card-body -->
+  </div>
+<!-- /.card -->
+</section>
+
+
+
+@*<h1>GetUserById</h1>
+
+<div>
+    <h4>User</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Id)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Id)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Age)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Age)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Password)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Password)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.UserType)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.UserType)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.IdTeam)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.IdTeam)
+        </dd>
+    </dl>
+</div>
+<div>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    <a asp-action="Index">Back to List</a>
+</div>
+*@

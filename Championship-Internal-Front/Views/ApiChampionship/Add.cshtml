@@ -1,0 +1,127 @@
+﻿@model Championship_Internal_Front.Models.NewChampionship
+
+@{
+    ViewData["Title"] = "Add";
+}
+
+<!-- Main content -->
+<section class="content-wrapper">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-6">
+        <h1></h1>
+        <p></p>
+        <div class="card card-primary">
+          <div class="card-header">
+            <h3 class="card-title">Novo Campeonato</h3>
+            @*<div class="card-tools">
+              <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                <i class="fas fa-minus"></i>
+              </button>
+            </div>*@
+          </div>
+          <div class="card-body">
+            <div class="form-group">
+              <label for="inputTitulo">Título</label>
+              <input type="text" id="inputtitulo" class="form-control">
+            </div>
+            <div class="form-group">
+              <label for="inputDescricao">Descrição</label>
+              <textarea id="inputdescricao" class="form-control" rows="4"></textarea>
+            </div>
+            <!-- Date and time -->
+          <div class="form-group">
+               <label for="dataInicio">Data de início</label>
+            <div class="input-group date" id="datainicio" data-target-input="nearest">
+                <input type="datetime-local" class="form-control datetimepicker-input" data-target="#datetimepicker6"/>
+                <div class="input-group-append" data-target="#datetimepicker6" data-toggle="datetimepicker">
+                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                </div>
+            </div>
+        </div>
+            <div class="form-group">
+              <label for="Fases">Quantidade de fases</label>
+              <input type="number" id="quantidadefases" class="form-control">
+            </div>
+            <div class="row">
+                <div class=""></div>
+              <div class="col-12">
+                <a href="#" class="btn btn-secondary">Cancel</a>
+                <input type="submit" value="Create new Project" class="btn btn-success">
+              </div>
+            </div>
+          </div>
+          <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+      </div>
+        <!-- /.card -->
+    </div>
+  </div>
+</section>
+    <!-- /.content -->
+  <!-- /.content-wrapper -->
+@*<div class="row">
+    <div class="col-md-4">
+        <form asp-action="AddChampionship">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>*@
+            @*<div class="form-group">
+                <label asp-for="Id" class="control-label"></label>
+                <input asp-for="Id" class="form-control" />
+                <span asp-validation-for="Id" class="text-danger"></span>
+            </div>*@
+            @*<div class="form-group">
+                <label asp-for="Title" class="control-label"></label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="StartDate" class="control-label"></label>
+                <input asp-for="StartDate" class="form-control" />
+                <span asp-validation-for="StartDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TotalPhases" class="control-label"></label>
+                <input asp-for="TotalPhases" class="form-control" />
+                <span asp-validation-for="TotalPhases" class="text-danger"></span>
+            </div>*@
+            @*<div class="form-group">
+                <label asp-for="WinnerTeam" class="control-label"></label>
+                <input asp-for="WinnerTeam" class="form-control" />
+                <span asp-validation-for="WinnerTeam" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SecondTeam" class="control-label"></label>
+                <input asp-for="SecondTeam" class="form-control" />
+                <span asp-validation-for="SecondTeam" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ThirdTeam" class="control-label"></label>
+                <input asp-for="ThirdTeam" class="form-control" />
+                <span asp-validation-for="ThirdTeam" class="text-danger"></span>
+            </div>*@
+@*            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>*@
+
+@*<div>
+    <a asp-action="Index">Back to List</a>
+</div>*@
+
+
+
+@*<script>
+    $(function () {
+        $('#datetimepicker6').datetimepicker({
+            defaultDate: "11/1/2013",
+            disabledDates: [
+                moment("12/25/2013"),
+                new Date(2013, 11 - 1, 21),
+                "11/22/2013 00:53"
+            ]
+        });
+    });
+</script>*@
