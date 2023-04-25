@@ -18,7 +18,7 @@ namespace Championship_Internal_Front.Controllers
 
         public IActionResult Index()
         {
-            if (Request.Cookies["AuthToken"] == null) return RedirectToAction("login", "ApiLogin");
+            //if (Request.Cookies["AuthToken"] == null) return RedirectToAction("login", "ApiLogin");
             return View();
         }
 
