@@ -1,14 +1,8 @@
-﻿using Azure.Core;
-using Championship_Internal_Front.Models;
-using Championship_Internal_Front.Services;
+﻿using Championship_Internal_Front.Models;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
-using NuGet.Common;
 using System.IdentityModel.Tokens.Jwt;
-using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 
