@@ -6,6 +6,7 @@ using Newtonsoft.Json;
 using System.Text;
 using Microsoft.AspNetCore.Authorization;
 using NuGet.Common;
+using System;
 
 namespace Championship_Internal_Front.Controllers
 {
@@ -25,17 +26,17 @@ namespace Championship_Internal_Front.Controllers
         }
 
 
-        [Route("Championships")]
+        [Route("championships")]
         public async Task<IActionResult> List()
         {
 
 
             if (Request.Cookies["AuthToken"] == null) return RedirectToAction("login", "ApiLogin");
 
-			string token = Request.Cookies["AuthToken"];
+			string? token = Request.Cookies["AuthToken"];
 
             
-            client.BaseAddress = new Uri("https://localhost:44334/");
+            client.BaseAddress = new Uri("http://localhost:7232/");
             client.DefaultRequestHeaders.Accept.Add(new
                 MediaTypeWithQualityHeaderValue("application/json"));
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
@@ -43,12 +44,15 @@ namespace Championship_Internal_Front.Controllers
 
             try
 			{
-				HttpResponseMessage response = client.GetAsync("internal").Result;
+				HttpResponseMessage response = client.GetAsync("external").Result;
 				if (response.IsSuccessStatusCode)
 				{
 					var listChampionships = await response.Content.ReadAsAsync<ChampionshipInternal[]>();
-					//var listaForuns = await response.Content.ReadFromJsonAsync<ForumClient[]>();
-
+					
+                    //foreach(ChampionshipInternal championship in listChampionships)
+                    //{
+                    //    if (championship.Status == Enums.ChampionshipStatusEnum.Created);
+                    //}
 					return View(listChampionships.ToList());
 				}
 				else
@@ -62,28 +66,30 @@ namespace Championship_Internal_Front.Controllers
 			}
 		}
 
-        [Route("championship_details")]
-        public IActionResult GetChampionshipById() { return View(); }
-
-		[HttpGet]
         
-        public async Task<IActionResult> GetChampionshipById(Guid id)
-		{
-            if (Request.Cookies["AuthToken"] == null) return RedirectToAction("login", "ApiLogin");
-            string token = Request.Cookies["AuthToken"];
 
-            client.BaseAddress = new Uri("https://localhost:44334/");
+		
+        [Route("championship_details")]
+        public async Task<IActionResult> GetChampionshipById(string championship_id)
+		{
+
+            Guid id;
+            if(Guid.TryParse(championship_id, out id))
+
+            if (Request.Cookies["AuthToken"] == null) return RedirectToAction("login", "ApiLogin");
+            string? token = Request.Cookies["AuthToken"];
+
+            client.BaseAddress = new Uri("http://localhost:7232/");
             client.DefaultRequestHeaders.Accept.Add(new
                 MediaTypeWithQualityHeaderValue("application/json"));
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-
+            
             try
             {
-                HttpResponseMessage response = client.GetAsync($"internal/{id}").Result;
+                HttpResponseMessage response = client.GetAsync($"external/{id}").Result;
                 if (response.IsSuccessStatusCode)
                 {
-                    var Championship = await response.Content.ReadAsAsync<ChampionshipInternal[]>();
-                    //var listaForuns = await response.Content.ReadFromJsonAsync<ForumClient[]>();
+                    var Championship = await response.Content.ReadAsAsync<ChampionshipExternalDetailed>();
 
                     return View(Championship);
                 }
@@ -96,8 +102,6 @@ namespace Championship_Internal_Front.Controllers
             {
                 return View("_Error", ex);
             }
-
-            return RedirectToAction();
 		}
 
 
@@ -108,13 +112,13 @@ namespace Championship_Internal_Front.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddChampionship(NewChampionship championship)
+        public async Task<IActionResult> AddChampionship(ChampionshipInternal championship)
         {
             if (Request.Cookies["AuthToken"] == null) return RedirectToAction("login", "ApiLogin");
-            string token = Request.Cookies["AuthToken"];
+            string? token = Request.Cookies["AuthToken"];
             try
             {
-                client.BaseAddress = new Uri("https://localhost:44334/");
+                client.BaseAddress = new Uri("http://localhost:7232/");
                 client.DefaultRequestHeaders.Accept.Add(new
                     MediaTypeWithQualityHeaderValue("application/json"));
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
@@ -141,15 +145,18 @@ namespace Championship_Internal_Front.Controllers
             }
         }
 
+
+
+
+
         [HttpPut]
-        [Route("edit_championship")]
         public async Task<IActionResult> EditChampionship(ChampionshipInternal editedchampionship)
         {
             if (Request.Cookies["AuthToken"] == null) return RedirectToAction("login", "ApiLogin");
-            string token = Request.Cookies["AuthToken"];
+            string? token = Request.Cookies["AuthToken"];
             try
             {
-                client.BaseAddress = new Uri("https://localhost:44334/");
+                client.BaseAddress = new Uri("http://localhost:7232/");
                 client.DefaultRequestHeaders.Accept.Add(new
                     MediaTypeWithQualityHeaderValue("application/json"));
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
@@ -176,10 +183,10 @@ namespace Championship_Internal_Front.Controllers
         public async Task<IActionResult> DeleteChampionship(ChampionshipInternal championship)
         {
             if (Request.Cookies["AuthToken"] == null) return RedirectToAction("login", "ApiLogin");
-            string token = Request.Cookies["AuthToken"];
+            string? token = Request.Cookies["AuthToken"];
             try
             {
-                client.BaseAddress = new Uri("https://localhost:44334/");
+                client.BaseAddress = new Uri("http://localhost:7232/");
                 client.DefaultRequestHeaders.Accept.Add(new
                     MediaTypeWithQualityHeaderValue("application/json"));
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);

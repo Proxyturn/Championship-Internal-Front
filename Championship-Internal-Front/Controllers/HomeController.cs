@@ -18,8 +18,9 @@ namespace Championship_Internal_Front.Controllers
 
         public IActionResult Index()
         {
-            //if (Request.Cookies["AuthToken"] == null) return RedirectToAction("login", "ApiLogin");
-            return View();
+            if (Request.Cookies["AuthToken"] == null) return RedirectToAction("login", "ApiLogin");
+            return RedirectToAction("List", "ApiChampionship");
+            
         }
 
         public IActionResult Privacy()

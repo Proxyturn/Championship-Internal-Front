@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using NuGet.Common;
 using System.Net.Http.Headers;
 using System.Text;
 
@@ -23,38 +22,7 @@ namespace Championship_Internal_Front.Controllers
             return View();
         }
 
-        [HttpGet]
-        [Route("Referees")]
-        public async Task<IActionResult> RefereeList()
-        {
-
-            if (Request.Cookies["AuthToken"] == null) return RedirectToAction("login", "ApiLogin");
-            string token = Request.Cookies["AuthToken"];
-
-            client.BaseAddress = new Uri("https://localhost:44334/");
-            client.DefaultRequestHeaders.Accept.Add(new
-                MediaTypeWithQualityHeaderValue("application/json"));
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-
-            try
-            {
-                HttpResponseMessage response = client.GetAsync("api/referee").Result;
-                if (response.IsSuccessStatusCode)
-                {
-                    var listReferee = await response.Content.ReadAsAsync<User[]>();
-
-                    return View(listReferee.ToList());
-                }
-                else
-                {
-                    throw new Exception("An error ocurred upon listing");
-                }
-            }
-            catch (Exception ex)
-            {
-                return View("_Error", ex);
-            }
-        }
+        
 
         [Authorize]
         [HttpGet("/protected-resource")]
@@ -69,7 +37,7 @@ namespace Championship_Internal_Front.Controllers
         {
             try
             {
-                client.BaseAddress = new Uri("https://localhost:44334/");
+                client.BaseAddress = new Uri("http://localhost:7232/");
                 client.DefaultRequestHeaders.Accept.Add(new
                     MediaTypeWithQualityHeaderValue("application/json"));
 
@@ -102,7 +70,7 @@ namespace Championship_Internal_Front.Controllers
             string token = Request.Cookies["AuthToken"];
             try
             {
-                client.BaseAddress = new Uri("https://localhost:44334/");
+                client.BaseAddress = new Uri("http://localhost:7232/");
                 client.DefaultRequestHeaders.Accept.Add(new
                     MediaTypeWithQualityHeaderValue("application/json"));
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
@@ -132,7 +100,7 @@ namespace Championship_Internal_Front.Controllers
             string token = Request.Cookies["AuthToken"];
             try
             {
-                client.BaseAddress = new Uri("https://localhost:44334/");
+                client.BaseAddress = new Uri("http://localhost:7232/");
                 client.DefaultRequestHeaders.Accept.Add(new
                     MediaTypeWithQualityHeaderValue("application/json"));
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);

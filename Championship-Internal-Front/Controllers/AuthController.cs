@@ -10,14 +10,6 @@ using System.Net.Http.Headers;
 using Championship_Internal_Front.Models;
 using Microsoft.AspNetCore.Authorization;
 using Newtonsoft.Json;
-using NuGet.Protocol;
-using System.Net;
-using Microsoft.AspNetCore.DataProtection;
-using Microsoft.Extensions.Logging;
-using System.ComponentModel;
-using Championship_Internal_Front.Services;
-using NuGet.Protocol.Plugins;
-using System.Net.Http;
 
 namespace Championship_Internal_Front.Controllers
 {
@@ -50,7 +42,7 @@ namespace Championship_Internal_Front.Controllers
 
 
             string authSigningKey = _configuration["TokenConfigurations:JwtKey"];
-            client.BaseAddress = new Uri("https://localhost:44334/");
+            client.BaseAddress = new Uri("http://localhost:7232/");
             client.DefaultRequestHeaders.Accept.Add(new
             MediaTypeWithQualityHeaderValue("application/json"));
                 
@@ -76,7 +68,7 @@ namespace Championship_Internal_Front.Controllers
                         SameSite = SameSiteMode.Strict, 
                         Expires = DateTime.Now.AddHours(2) 
                     });
-                    JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();
+                    JwtSecurityTokenHandler tokenHandler = new();
                     var token = tokenHandler.ReadJwtToken(status_token.token);
                     var claims = token.Claims;
                     string userId = (claims.First(claim => claim.Type == "userId").Value);
@@ -90,38 +82,17 @@ namespace Championship_Internal_Front.Controllers
                 }
                 else
                 {
-                    throw new Exception("An error ocurred upon listing");
+                    Response status_message = await response.Content.ReadAsAsync<Response>();
+                    if (status_message.Status == "404") throw new Exception("Usuário não encontrado");
+                    throw new Exception("Ocorreu um erro com o Login, favor voltar e tentar novamente");
                 }
             }
             catch (Exception ex)
             {
+                
                 return View("_Error", ex);
             }
-            return Unauthorized();
-            //var user = await _userManager.FindByNameAsync(email);
-            //if (user != null && await _userManager.CheckPasswordAsync(user, password))
-            //{
-            //    var userRoles = await _userManager.GetRolesAsync(user);
-
-            //    var authClaims = new List<Claim>
-            //    {
-            //        new Claim(ClaimTypes.Email, user.Email),
-            //        new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-            //    };
-
-            //    foreach (var userRole in userRoles)
-            //    {
-            //        authClaims.Add(new Claim(ClaimTypes.Role, userRole));
-            //    }
-
-            //    token = GetToken(authClaims);
-
-            //    return Ok(new
-            //    {
-            //        token = new JwtSecurityTokenHandler().WriteToken(token),
-            //        expiration = token.ValidTo
-            //    });
-            //}
+            
         }
 
         [HttpPost]
@@ -129,7 +100,7 @@ namespace Championship_Internal_Front.Controllers
         public async Task<IActionResult> SignUp(NewUser user)
         {
 
-            client.BaseAddress = new Uri("https://localhost:44334/");
+            client.BaseAddress = new Uri("http://localhost:7232/");
             client.DefaultRequestHeaders.Accept.Add(new
             MediaTypeWithQualityHeaderValue("application/json"));
 
@@ -142,30 +113,13 @@ namespace Championship_Internal_Front.Controllers
 
                 if (response.IsSuccessStatusCode)
                 {
-                    Response status_token = await response.Content.ReadAsAsync<Response>();
-
-                    Response.Cookies.Append("AuthToken", status_token.token, new CookieOptions()
-                    {
-                        HttpOnly = true,
-                        SameSite = SameSiteMode.Strict,
-                        Expires = DateTime.Now.AddHours(2)
-                    });
-                    //JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();
-                    //var token = tokenHandler.ReadJwtToken(status_token.token);
-                    //var claims = token.Claims;
-                    //string userId = (claims.First(claim => claim.Type == "userId").Value);
-                    //Guid id; 
-                    //Guid.TryParse(userId, out id);
-
-                    //UserServices userService = new(status_token.token);
-                    //userService.GetByUserId(id);
-
+                    
                     return RedirectToAction("Index", "Home");
                 }
-                else
-                {
-                    throw new Exception("An error ocurred upon listing");
-                }
+                //else
+                //{
+                //    throw new Exception("An error ocurred upon listing");
+                //}
             }
             catch (Exception ex)
             {

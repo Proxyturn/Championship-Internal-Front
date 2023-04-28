@@ -1,7 +1,8 @@
 ﻿@model Exception
-
-<h2 class="text-danger">Erro reportado:</h2>
-
+@{
+    Layout = "_Login_Layout";
+}
 <div class="alert alert-danger">
+    <h1>Erro reportado:</h1>
     @Model.Message
 </div>

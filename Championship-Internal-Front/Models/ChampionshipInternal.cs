@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Championship_Internal_Front.Enums;
+using System.ComponentModel.DataAnnotations;
 
 namespace Championship_Internal_Front.Models
 {
@@ -13,5 +14,6 @@ namespace Championship_Internal_Front.Models
         public Guid WinnerTeam { get; set; }
         public Guid SecondTeam { get; set; }
         public Guid ThirdTeam { get; set; }
+        public ChampionshipStatusEnum Status { get; set; }
     }
 }

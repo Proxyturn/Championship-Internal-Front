@@ -1,14 +1,8 @@
-﻿using Azure.Core;
-using Championship_Internal_Front.Models;
-using Championship_Internal_Front.Services;
+﻿using Championship_Internal_Front.Models;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
-using NuGet.Common;
 using System.IdentityModel.Tokens.Jwt;
-using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 
@@ -41,13 +35,12 @@ namespace Championship_Internal_Front.Controllers
             {
                 return RedirectToAction("login", "ApiLogin");
                 
-            } 
-                
+            }
 
             //UserServices userService = new(token);
             //userService.GetByUserId(userId);
 
-            client.BaseAddress = new Uri("https://localhost:44334/");
+            client.BaseAddress = new Uri("http://localhost:7232/");
             client.DefaultRequestHeaders.Accept.Add(new
             MediaTypeWithQualityHeaderValue("application/json"));
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
@@ -76,7 +69,7 @@ namespace Championship_Internal_Front.Controllers
             if (Request.Cookies["AuthToken"] == null) return RedirectToAction("login", "ApiLogin");
             string token = Request.Cookies["AuthToken"];
 
-            client.BaseAddress = new Uri("https://localhost:44334/");
+            client.BaseAddress = new Uri("http://localhost:7232/");
             client.DefaultRequestHeaders.Accept.Add(new
                 MediaTypeWithQualityHeaderValue("application/json"));
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
@@ -113,7 +106,7 @@ namespace Championship_Internal_Front.Controllers
         {
             try
             {
-                client.BaseAddress = new Uri("https://champscoreapi.azurewebsites.net/");
+                client.BaseAddress = new Uri("http://localhost:7232/");
                 client.DefaultRequestHeaders.Accept.Add(new
                     MediaTypeWithQualityHeaderValue("application/json"));
 
@@ -146,7 +139,7 @@ namespace Championship_Internal_Front.Controllers
             string token = Request.Cookies["AuthToken"];
             try
             {
-                client.BaseAddress = new Uri("https://champscoreapi.azurewebsites.net/");
+                client.BaseAddress = new Uri("http://localhost:7232/");
                 client.DefaultRequestHeaders.Accept.Add(new
                     MediaTypeWithQualityHeaderValue("application/json"));
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
@@ -176,7 +169,7 @@ namespace Championship_Internal_Front.Controllers
             string token = Request.Cookies["AuthToken"];
             try
             {
-                client.BaseAddress = new Uri("https://champscoreapi.azurewebsites.net/");
+                client.BaseAddress = new Uri("http://localhost:7232/");
                 client.DefaultRequestHeaders.Accept.Add(new
                     MediaTypeWithQualityHeaderValue("application/json"));
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
