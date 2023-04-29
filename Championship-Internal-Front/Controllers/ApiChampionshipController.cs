@@ -1,12 +1,9 @@
 ﻿using Championship_Internal_Front.Models;
 using Microsoft.AspNetCore.Mvc;
-using System.Net.Http;
 using System.Net.Http.Headers;
 using Newtonsoft.Json;
 using System.Text;
-using Microsoft.AspNetCore.Authorization;
-using NuGet.Common;
-using System;
+
 
 namespace Championship_Internal_Front.Controllers
 {
@@ -73,11 +70,11 @@ namespace Championship_Internal_Front.Controllers
         public async Task<IActionResult> GetChampionshipById(string championship_id)
 		{
 
-            Guid id;
-            if(Guid.TryParse(championship_id, out id))
-
             if (Request.Cookies["AuthToken"] == null) return RedirectToAction("login", "ApiLogin");
             string? token = Request.Cookies["AuthToken"];
+
+            Guid id;
+            Guid.TryParse(championship_id, out id);
 
             client.BaseAddress = new Uri("http://localhost:7232/");
             client.DefaultRequestHeaders.Accept.Add(new
@@ -112,7 +109,7 @@ namespace Championship_Internal_Front.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddChampionship(ChampionshipInternal championship)
+        public async Task<IActionResult> AddChampionship(NewChampionship championship)
         {
             if (Request.Cookies["AuthToken"] == null) return RedirectToAction("login", "ApiLogin");
             string? token = Request.Cookies["AuthToken"];
@@ -128,19 +125,15 @@ namespace Championship_Internal_Front.Controllers
                 HttpContent content = new StringContent(json, Encoding.Unicode, "application/json");
 
                 var response = await client.PostAsync("api/championship", content);
-                if (response.IsSuccessStatusCode)
-                {
-                    return RedirectToAction("List");
-                }
-                else
+                if (!response.IsSuccessStatusCode)
                 {
                     string error = $"{response.StatusCode} - {response.ReasonPhrase}";
                     throw new Exception(error);
                 }
+                return RedirectToAction("List");
             }
             catch (Exception ex)
             {
-
                 return View("_Error", ex);
             }
         }
@@ -166,12 +159,12 @@ namespace Championship_Internal_Front.Controllers
                 HttpContent content = new StringContent(json, Encoding.Unicode, "application/json");
 
                 var response = await client.PutAsync($"api/championship/{editedchampionship.Id}", content);
-                if (response.IsSuccessStatusCode) return RedirectToAction("List");
-                else
+                if (!response.IsSuccessStatusCode)
                 {
                     string error = $"{response.StatusCode} - {response.ReasonPhrase}";
                     throw new Exception(error);
                 }
+                return RedirectToAction("List");
             }
             catch (Exception ex)
             {
@@ -192,12 +185,12 @@ namespace Championship_Internal_Front.Controllers
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
                 var response = await client.DeleteAsync($"api/championship/{championship.Id}");
-                if (response.IsSuccessStatusCode) return RedirectToAction("List");
-                else
+                if (!response.IsSuccessStatusCode)
                 {
                     string error = $"{response.StatusCode} - {response.ReasonPhrase}";
                     throw new Exception(error);
                 }
+                return RedirectToAction("List");
             }
             catch (Exception ex)
             {

@@ -15,7 +15,7 @@
             <h3 class="card-title">Detalhes do Campeonato</h3>
           </div>
           <div class="card-body">
-            <form asp-controller="ApiChampionship" asp-action="AddChampionship" method="post">
+          <form asp-controller="ApiChampionship" asp-action="EditChampionship" method="get">
               <div class="form-group">
                 <label for="title">Título</label>
                 @Html.DisplayFor(modelItem => Model.Title)
@@ -45,10 +45,18 @@
                 <input contenteditable="false type="text" class="form-control third" value="@Html.DisplayFor(modelItem => Model.Subscriptions)">
               </div>*@
               <div class="col-12" align=right>
-                <a asp-controller="ApiChampionship" asp-action="DeleteChampionship" class="btn btn-danger">Deletar Campeonato</a>
-                <input asp-controller="ApiChampionship" asp-action="EditChampionship" type="submit" value="Editar Campeonato" class="btn btn-warning">
+                
+                
+        
+                    <div class="text-right">
+                        <input type="text" Name="championship_id" hidden="hidden" class="form-control" value="@Html.DisplayFor(modelItem => Model.Id)">
+                        <input asp-controller="ApiChampionship" asp-action="EditChampionship" type="submit" value="Editar Campeonato" class="btn btn-warning">
+                        <a asp-controller="ApiChampionship" asp-action="DeleteChampionship" class="btn btn-danger">Deletar Campeonato</a>
+                    </div>
+
+                </form>
+                
               </div>
-            </form>
         
           </div>
         </div>
@@ -100,14 +108,8 @@
                 <label for="status">Status: </label>
                 @Html.DisplayFor(modelItem => item.Status)
               </div>
-              @*<div class="col-12">
-                <a asp-controller="ApiChampionship" asp-action="DeleteChampionship" class="btn btn-danger">Deletar Campeonato</a>
-                <input asp-controller="ApiChampionship" asp-action="EditChampionship" type="submit" value="Editar Campeonato" class="btn btn-warning">
-              </div>*@
             </form>
-        
           </div>
-          
         </div>
       </div>
       
@@ -133,10 +135,7 @@
                 <label for="start_date">Vitórias no Campeonato</label>
                 @Html.DisplayFor(modelItem => team.Wins)
               </div>
-              @*<div class="col-12">
-                <a asp-controller="ApiChampionship" asp-action="DeleteChampionship" class="btn btn-danger">Deletar Campeonato</a>
-                <input asp-controller="ApiChampionship" asp-action="EditChampionship" type="submit" value="Editar Campeonato" class="btn btn-warning">
-              </div>*@
+              
             </form>
         
           </div>
@@ -147,58 +146,3 @@
     }
   </div>
 </section>
-
-      
-@*<div>
-    <h4>ChampionshipInternal</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Id)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Id)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Title)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.StartDate)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.StartDate)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.TotalPhases)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.TotalPhases)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.WinnerTeam)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.WinnerTeam)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.SecondTeam)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.SecondTeam)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ThirdTeam)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ThirdTeam)
-        </dd>
-    </dl>
-</div>
-<div>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
-    <a asp-action="Index">Back to List</a>
-</div>
-*@

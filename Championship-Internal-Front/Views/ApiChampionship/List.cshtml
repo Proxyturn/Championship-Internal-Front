@@ -16,6 +16,12 @@
           <h1></h1>
           <p></p>
             <h1>Campeonatos</h1>
+           <div align="left">
+               <a asp-controller="ApiChampionship" asp-action="Add" class="btn btn-success">Criar Campeonato</a>
+           </div>
+
+               
+
           </div>
           <div class="col-sm-6">
             @*<ol class="breadcrumb float-sm-right">
@@ -44,7 +50,7 @@
                       <p class="text-muted text-sm"><b>Descrição: </b> @Html.DisplayFor(modelItem => item.Description) </p>
                       <ul class="ml-4 mb-10 fa-ul text-muted">
                         <li class="medium"><span class="fa-li"><i class="fas fa-lg fa-calendar"></i></span> Data de Início: @Html.DisplayFor(modelItem => item.StartDate)</li>
-                        <li class="medium"><span class="fa-li"><i class="fas fa-lg fa-tree"></i></span>Fases: @Html.DisplayFor(modelItem => item.TotalPhases)</li>
+                        <li class="medium"><span class="fa-li"><i class="fas fa-lg fa-user"></i></span>Fases: @Html.DisplayFor(modelItem => item.TotalPhases)</li>
                       </ul>
                     </div>
                   </div>
@@ -64,7 +70,8 @@
         
        }
         <!-- /.card-body -->
-          @*<nav aria-label="Contacts Page Navigation">
+        <div class="card-footer">
+          <nav aria-label="Contacts Page Navigation">
             <ul class="pagination justify-content-center m-0">
               <li class="page-item active"><a class="page-link" href="#">1</a></li>
               <li class="page-item"><a class="page-link" href="#">2</a></li>
@@ -75,7 +82,9 @@
               <li class="page-item"><a class="page-link" href="#">7</a></li>
               <li class="page-item"><a class="page-link" href="#">8</a></li>
             </ul>
-          </nav>*@
+          </nav>
+          
+        </div>
         </div>
         <!-- /.card-footer -->
         </section>
@@ -84,92 +93,3 @@
     
     <!-- /.content -->
   <!-- /.content-wrapper -->
-
-
-@*<!-- Content Wrapper. Contains page content -->
-<div class="content-wrapper">
-  <!-- Content Header (Page header) -->
-  <div class="content-header">
-    <div class="container-fluid">
-      <div class="row mb-2">
-        <div class="col-sm-6">
-          <h1 class="m-0">Starter Page</h1>
-        </div><!-- /.col -->
-        <div class="col-sm-6">
-          <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item"><a href="#">Home</a></li>
-            <li class="breadcrumb-item active">Starter Page</li>
-          </ol>
-        </div><!-- /.col -->
-      </div><!-- /.row -->
-    </div><!-- /.container-fluid -->
-  </div>
-  <p>
-    <a asp-action="Add" class="btn btn-default">Include new Championship</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-                @*<th>
-                @Html.DisplayNameFor(model => model.Id)
-            </th>
-            <th>
-                    @Html.DisplayNameFor(model => model.Title)
-            </th>
-            <th>
-                    @Html.DisplayNameFor(model => model.StartDate)
-            </th>
-            <th>
-                    @Html.DisplayNameFor(model => model.TotalPhases)
-            </th>
-            <th>
-                    @Html.DisplayNameFor(model => model.WinnerTeam)
-            </th>
-            <th>
-                    @Html.DisplayNameFor(model => model.SecondTeam)
-            </th>
-            <th>
-                    @Html.DisplayNameFor(model => model.ThirdTeam)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-            @foreach (var item in Model)
-            {
-            <tr>
-                    @*<td>
-                @Html.DisplayFor(modelItem => item.Id)
-            </td>
-                <td>
-                        @Html.DisplayFor(modelItem => item.Title)
-                </td>
-                <td>
-                        @Html.DisplayFor(modelItem => item.StartDate)
-                </td>
-                <td>
-                        @Html.DisplayFor(modelItem => item.TotalPhases)
-                </td>
-                <td>
-                        @Html.DisplayFor(modelItem => item.WinnerTeam)
-                </td>
-                <td>
-                        @Html.DisplayFor(modelItem => item.SecondTeam)
-                </td>
-                <td>
-                        @Html.DisplayFor(modelItem => item.ThirdTeam)
-                </td>
-                <td>
-                        <div class="tools"> 
-                           <i class="fas fa-edit"></i>
-                           <i class="fas fa-trash-o"></i>
-                        </div>
-                        @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                        @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                        @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-                </td>
-            </tr>
-            }
-    </tbody>
-</table>
-</div>*@

@@ -21,35 +21,34 @@
             </div>*@
           </div>
           <div class="card-body">
+            <form asp-controller="ApiChampionship" asp-action="AddChampionship"  method="post">
             <div class="form-group">
               <label for="inputTitulo">Título</label>
-              <input type="text" id="inputtitulo" class="form-control">
+              <input type="text" id="inputtitulo" name="Title" class="form-control">
             </div>
             <div class="form-group">
               <label for="inputDescricao">Descrição</label>
-              <textarea id="inputdescricao" class="form-control" rows="4"></textarea>
+              <textarea id="inputdescricao" name="Description" class="form-control" rows="4"></textarea>
             </div>
             <!-- Date and time -->
           <div class="form-group">
                <label for="dataInicio">Data de início</label>
             <div class="input-group date" id="datainicio" data-target-input="nearest">
-                <input type="datetime-local" class="form-control datetimepicker-input" data-target="#datetimepicker6"/>
-                <div class="input-group-append" data-target="#datetimepicker6" data-toggle="datetimepicker">
-                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                </div>
+                <input type="datetime-local" name="StartDate" class="form-control datetimepicker-input"/>
             </div>
-        </div>
+          </div>
             <div class="form-group">
               <label for="Fases">Quantidade de fases</label>
-              <input type="number" id="quantidadefases" class="form-control">
+              <input type="number" id="quantidadefases" name="TotalPhases" class="form-control">
             </div>
             <div class="row">
                 <div class=""></div>
               <div class="col-12">
                 <a href="#" class="btn btn-secondary">Cancel</a>
-                <a asp-action="AddChampionship" asp-controller="ApiChampionship" type="submit" value="Criar novo Campeonato" class="btn btn-success">Criar novo Campeonato</a>
+                <button type="submit" value="championship" class="btn btn-success">Criar novo Campeonato</button>
               </div>
             </div>
+            </form>
           </div>
           <!-- /.card-body -->
         </div>

@@ -121,8 +121,6 @@ namespace Championship_Internal_Front.Controllers
             {
                 return View("_Error", ex);
             }
-
-            return RedirectToAction();
         }
 
     }
