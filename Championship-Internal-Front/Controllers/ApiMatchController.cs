@@ -25,10 +25,10 @@ namespace Championship_Internal_Front.Controllers
         //public async Task<IActionResult> List()
         //{
 
-        //    if (Request.Cookies["AuthToken"] == null) return RedirectToAction("login", "ApiLogin");
+        //    if (Request.Cookies["AuthToken"] == null) return RedirectToAction("login", "Auth");
         //    string token = Request.Cookies["AuthToken"];
 
-        //    client.BaseAddress = new Uri("http://localhost:7232/");
+        //    client.BaseAddress = new Uri("https://champscoreapi.azurewebsites.net/");
         //    client.DefaultRequestHeaders.Accept.Add(new
         //        MediaTypeWithQualityHeaderValue("application/json"));
         //    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
@@ -60,10 +60,10 @@ namespace Championship_Internal_Front.Controllers
         [Route("match_details")]
         public async Task<IActionResult> GetMatchById(Guid id)
         {
-            if (Request.Cookies["AuthToken"] == null) return RedirectToAction("login", "ApiLogin");
+            if (Request.Cookies["AuthToken"] == null) return RedirectToAction("login", "Auth");
             string? token = Request.Cookies["AuthToken"];
 
-            client.BaseAddress = new Uri("http://localhost:7232/");
+            client.BaseAddress = new Uri("https://champscoreapi.azurewebsites.net/");
             client.DefaultRequestHeaders.Accept.Add(new
                 MediaTypeWithQualityHeaderValue("application/json"));
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
@@ -94,10 +94,10 @@ namespace Championship_Internal_Front.Controllers
         [Route("match_by_referee")]
         public async Task<IActionResult> GetByRefereeId(Guid id)
         {
-            if (Request.Cookies["AuthToken"] == null) return RedirectToAction("login", "ApiLogin");
+            if (Request.Cookies["AuthToken"] == null) return RedirectToAction("login", "Auth");
             string? token = Request.Cookies["AuthToken"];
 
-            client.BaseAddress = new Uri("http://localhost:7232/");
+            client.BaseAddress = new Uri("https://champscoreapi.azurewebsites.net/");
             client.DefaultRequestHeaders.Accept.Add(new
                 MediaTypeWithQualityHeaderValue("application/json"));
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);

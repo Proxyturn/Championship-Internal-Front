@@ -8,6 +8,7 @@
         public string? StartDate { get; set; }
         public string? EndDate { get; set;}
         public int Subscription { get; set; }
+        public int TotalPhases { get; set; }
         public List<Team>? Ranking { get; set; }
         public List<Match>? Matchs { get; set; }
     }

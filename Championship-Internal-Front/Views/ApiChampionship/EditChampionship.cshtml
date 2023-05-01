@@ -1,73 +1,60 @@
-﻿@model Championship_Internal_Front.Models.ChampionshipInternal
+﻿@model Championship_Internal_Front.Models.NewChampionship
 
 @{
     ViewData["Title"] = "EditChampionship";
 }
 
-<h1>EditChampionship</h1>
 
-<h4>ChampionshipInternal</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="EditChampionship">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Id" class="control-label"></label>
-                <input asp-for="Id" class="form-control" />
-                <span asp-validation-for="Id" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Title" class="control-label"></label>
-                <input asp-for="Title" class="form-control" />
-                <span asp-validation-for="Title" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Description" class="control-label"></label>
-                <input asp-for="Description" class="form-control" />
-                <span asp-validation-for="Description" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="StartDate" class="control-label"></label>
-                <input asp-for="StartDate" class="form-control" />
-                <span asp-validation-for="StartDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="TotalPhases" class="control-label"></label>
-                <input asp-for="TotalPhases" class="form-control" />
-                <span asp-validation-for="TotalPhases" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="WinnerTeam" class="control-label"></label>
-                <input asp-for="WinnerTeam" class="form-control" />
-                <span asp-validation-for="WinnerTeam" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="SecondTeam" class="control-label"></label>
-                <input asp-for="SecondTeam" class="form-control" />
-                <span asp-validation-for="SecondTeam" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ThirdTeam" class="control-label"></label>
-                <input asp-for="ThirdTeam" class="form-control" />
-                <span asp-validation-for="ThirdTeam" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Status" class="control-label"></label>
-                <input asp-for="Status" class="form-control" />
-                <span asp-validation-for="Status" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+<!-- Main content -->
+<section class="content-wrapper">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-6">
+        <h1></h1>
+        <p></p>
+        <div class="card card-primary">
+          <div class="card-header">
+            <h3 class="card-title">Edição do Campeonato</h3>
+            @*<div class="card-tools">
+              <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                <i class="fas fa-minus"></i>
+              </button>
+            </div>*@
+          </div>
+          <div class="card-body">
+            <form asp-controller="ApiChampionship" asp-action="SubmitChampionship"  method="put">
+              <div class="form-group">
+                <label for="inputTitulo">Título</label>
+                <input type="text" Name="Title"  class="form-control" value="@Html.DisplayFor(modelItem => Model.Title)">
+              </div>
+              <div class="form-group">
+                <label for="inputDescricao">Descrição</label>
+                <textarea type="text" Name="Description" class="form-control" rows="4"> @Html.DisplayFor(modelItem => Model.Description)</textarea>
+              </div>
+              <!-- Date and time -->
+              <div class="form-group">
+                 <label for="dataInicio">Data de início</label>
+                <div class="input-group date" id="datainicio">
+                  <input type="text" Name="StartDate" class="form-control datetimepicker-input"  value="@Html.DisplayFor(modelItem => Model.StartDate)" >
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="Fases">Quantidade de fases</label>
+                <input type="text" Name="TotalPhases" class="form-control" value="@Html.DisplayFor(modelItem => Model.TotalPhases)">
+              </div>
+              <div class="row">
+                <div class="col-12" align="right">
+                  <a href="#" class="btn btn-secondary">Cancelar</a>
+                  <button type="submit"  class="btn btn-success">Editar Campeonato</button>
+                </div>
+              </div>
+            </form>
+          </div>
+          <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+      </div>
+        <!-- /.card -->
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+  </div>
+</section>

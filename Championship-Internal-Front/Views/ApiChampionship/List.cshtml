@@ -58,6 +58,7 @@
                 <form asp-controller="ApiChampionship" asp-action="GetChampionshipById" method="get">
                   <div class="card-footer">
                     <div class="text-right">
+                        <input type="text" Name="status" hidden="hidden" class="form-control" value="@Html.DisplayFor(modelItem => item.Status)">
                         <input type="text" Name="championship_id" hidden="hidden" class="form-control" value="@Html.DisplayFor(modelItem => item.Id)">
                         <button type="submit" value="GetChampionshipById" class="btn btn-primary btn-block">Mais Detalhes</button>
                     </div>

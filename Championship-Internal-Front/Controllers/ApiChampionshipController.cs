@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Net.Http.Headers;
 using Newtonsoft.Json;
 using System.Text;
-
+using Championship_Internal_Front.Enums;
 
 namespace Championship_Internal_Front.Controllers
 {
@@ -26,37 +26,21 @@ namespace Championship_Internal_Front.Controllers
         [Route("championships")]
         public async Task<IActionResult> List()
         {
-
-
-            if (Request.Cookies["AuthToken"] == null) return RedirectToAction("login", "ApiLogin");
-
+            if (Request.Cookies["AuthToken"] == null) return RedirectToAction("login", "Auth");
 			string? token = Request.Cookies["AuthToken"];
 
-            
-            client.BaseAddress = new Uri("http://localhost:7232/");
+            client.BaseAddress = new Uri("https://champscoreapi.azurewebsites.net/");
             client.DefaultRequestHeaders.Accept.Add(new
                 MediaTypeWithQualityHeaderValue("application/json"));
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
-
             try
 			{
-				HttpResponseMessage response = client.GetAsync("external").Result;
-				if (response.IsSuccessStatusCode)
-				{
-					var listChampionships = await response.Content.ReadAsAsync<ChampionshipInternal[]>();
-					
-                    //foreach(ChampionshipInternal championship in listChampionships)
-                    //{
-                    //    if (championship.Status == Enums.ChampionshipStatusEnum.Created);
-                    //}
-					return View(listChampionships.ToList());
-				}
-				else
-				{
-					throw new Exception("An error ocurred upon listing");
-				}
-			}
+				HttpResponseMessage response = client.GetAsync("internal").Result;
+				if (!response.IsSuccessStatusCode) throw new Exception("An error ocurred upon listing");
+                var listChampionships = await response.Content.ReadAsAsync<ChampionshipInternal[]>();
+                return View(listChampionships.ToList());
+            }
 			catch (Exception ex)
 			{
 				return View("_Error", ex);
@@ -70,13 +54,13 @@ namespace Championship_Internal_Front.Controllers
         public async Task<IActionResult> GetChampionshipById(string championship_id)
 		{
 
-            if (Request.Cookies["AuthToken"] == null) return RedirectToAction("login", "ApiLogin");
+            if (Request.Cookies["AuthToken"] == null) return RedirectToAction("login", "Auth");
             string? token = Request.Cookies["AuthToken"];
 
             Guid id;
             Guid.TryParse(championship_id, out id);
-
-            client.BaseAddress = new Uri("http://localhost:7232/");
+            NewChampionship champ = new();
+            client.BaseAddress = new Uri("https://champscoreapi.azurewebsites.net/");
             client.DefaultRequestHeaders.Accept.Add(new
                 MediaTypeWithQualityHeaderValue("application/json"));
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
@@ -84,23 +68,16 @@ namespace Championship_Internal_Front.Controllers
             try
             {
                 HttpResponseMessage response = client.GetAsync($"external/{id}").Result;
-                if (response.IsSuccessStatusCode)
-                {
-                    var Championship = await response.Content.ReadAsAsync<ChampionshipExternalDetailed>();
-
-                    return View(Championship);
-                }
-                else
-                {
-                    throw new Exception("An error ocurred upon listing");
-                }
+                if (!response.IsSuccessStatusCode) throw new Exception("An error ocurred upon listing");
+                var championship = await response.Content.ReadAsAsync<ChampionshipExternalDetailed>();
+                //if (status != null) ViewBag.status = status;
+                return View(championship);
             }
             catch (Exception ex)
             {
                 return View("_Error", ex);
             }
 		}
-
 
         [HttpGet]
         public IActionResult Add()
@@ -111,11 +88,11 @@ namespace Championship_Internal_Front.Controllers
         [HttpPost]
         public async Task<IActionResult> AddChampionship(NewChampionship championship)
         {
-            if (Request.Cookies["AuthToken"] == null) return RedirectToAction("login", "ApiLogin");
+            if (Request.Cookies["AuthToken"] == null) return RedirectToAction("login", "Auth");
             string? token = Request.Cookies["AuthToken"];
             try
             {
-                client.BaseAddress = new Uri("http://localhost:7232/");
+                client.BaseAddress = new Uri("https://champscoreapi.azurewebsites.net/");
                 client.DefaultRequestHeaders.Accept.Add(new
                     MediaTypeWithQualityHeaderValue("application/json"));
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
@@ -138,27 +115,38 @@ namespace Championship_Internal_Front.Controllers
             }
         }
 
-
-
-
+        [Route("SubmitChampionship")]
+        public IActionResult EditChampionship(string id, string title, string description, string startdate, int totalphases)
+        {
+            Guid championship_id;
+            Guid.TryParse(id, out championship_id);
+            NewChampionship championship = new();
+            championship.Id = championship_id;
+            championship.Title = title;
+            championship.Description = description;
+            championship.StartDate = startdate;
+            championship.TotalPhases = totalphases;
+            return View(championship);
+        }
 
         [HttpPut]
-        public async Task<IActionResult> EditChampionship(ChampionshipInternal editedchampionship)
+        
+        public async Task<IActionResult> SubmitChampionship(NewChampionship editedChampionship)
         {
-            if (Request.Cookies["AuthToken"] == null) return RedirectToAction("login", "ApiLogin");
+            if (Request.Cookies["AuthToken"] == null) return RedirectToAction("login", "Auth");
             string? token = Request.Cookies["AuthToken"];
             try
             {
-                client.BaseAddress = new Uri("http://localhost:7232/");
+                client.BaseAddress = new Uri("https://champscoreapi.azurewebsites.net/");
                 client.DefaultRequestHeaders.Accept.Add(new
                     MediaTypeWithQualityHeaderValue("application/json"));
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
-                string json = JsonConvert.SerializeObject(editedchampionship);
+                string json = JsonConvert.SerializeObject(editedChampionship);
 
                 HttpContent content = new StringContent(json, Encoding.Unicode, "application/json");
 
-                var response = await client.PutAsync($"api/championship/{editedchampionship.Id}", content);
+                var response = await client.PutAsync($"api/championship", content);
                 if (!response.IsSuccessStatusCode)
                 {
                     string error = $"{response.StatusCode} - {response.ReasonPhrase}";
@@ -172,19 +160,19 @@ namespace Championship_Internal_Front.Controllers
             }
         }
 
-        [HttpDelete]
-        public async Task<IActionResult> DeleteChampionship(ChampionshipInternal championship)
+        
+        public async Task<IActionResult> DeleteChampionship(string id, string title, string description, string startdate, int totalphases)
         {
-            if (Request.Cookies["AuthToken"] == null) return RedirectToAction("login", "ApiLogin");
+            if (Request.Cookies["AuthToken"] == null) return RedirectToAction("login", "Auth");
             string? token = Request.Cookies["AuthToken"];
             try
             {
-                client.BaseAddress = new Uri("http://localhost:7232/");
+                client.BaseAddress = new Uri("https://champscoreapi.azurewebsites.net/");
                 client.DefaultRequestHeaders.Accept.Add(new
                     MediaTypeWithQualityHeaderValue("application/json"));
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
-                var response = await client.DeleteAsync($"api/championship/{championship.Id}");
+                var response = await client.DeleteAsync($"api/championship/{id}");
                 if (!response.IsSuccessStatusCode)
                 {
                     string error = $"{response.StatusCode} - {response.ReasonPhrase}";

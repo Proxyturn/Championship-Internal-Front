@@ -35,6 +35,32 @@ namespace Championship_Internal_Front.Controllers
 
         //AuthController() { }
 
+
+        //[Route("login")]
+        //public IActionResult Login()
+        //{
+        //    return View();
+        //}
+
+        //[Route("signup")]
+        //public IActionResult RegisterAccount()
+        //{
+        //    return View();
+        //}
+
+
+        [Route("login")]
+        public IActionResult Login()
+        {
+            return View();
+        }
+
+        [Route("signup")]
+        public IActionResult RegisterAccount()
+        {
+            return View();
+        }
+
         [HttpPost]
         [Route("login")]
         public async Task<IActionResult> LoginAuth(LoginModel login)
@@ -42,7 +68,7 @@ namespace Championship_Internal_Front.Controllers
 
 
             string authSigningKey = _configuration["TokenConfigurations:JwtKey"];
-            client.BaseAddress = new Uri("http://localhost:7232/");
+            client.BaseAddress = new Uri("https://champscoreapi.azurewebsites.net/");
             client.DefaultRequestHeaders.Accept.Add(new
             MediaTypeWithQualityHeaderValue("application/json"));
                 
@@ -100,10 +126,10 @@ namespace Championship_Internal_Front.Controllers
         public async Task<IActionResult> SignUp(NewUser user)
         {
 
-            client.BaseAddress = new Uri("http://localhost:7232/");
+            client.BaseAddress = new Uri("https://champscoreapi.azurewebsites.net/");
             client.DefaultRequestHeaders.Accept.Add(new
             MediaTypeWithQualityHeaderValue("application/json"));
-
+            user.UserType = 0;
             string data = JsonConvert.SerializeObject(user);
             StringContent httpContent = new StringContent(data, System.Text.Encoding.UTF8, "application/json");
 
@@ -126,13 +152,13 @@ namespace Championship_Internal_Front.Controllers
                 return View("_Error", ex);
             }
 
-            return RedirectToAction("Login", "ApiLogin");
+            return RedirectToAction("login", "Auth");
         }
 
         public IActionResult Logout()
         {
             if (Request.Cookies["AuthToken"] != null) Response.Cookies.Delete("AuthToken");
-            return RedirectToAction("login", "ApiLogin");
+            return RedirectToAction("login", "Auth");
         }
 
         public bool TokenExists()

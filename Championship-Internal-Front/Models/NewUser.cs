@@ -8,6 +8,6 @@ namespace Championship_Internal_Front.Models
         public int Age { get; set; }
         public string? Email { get; set; }
         public string? Password { get; set; }
-        public readonly UserEnum UserType = UserEnum.Organizer;
+        public UserEnum UserType = UserEnum.Organizer;
     }
 }

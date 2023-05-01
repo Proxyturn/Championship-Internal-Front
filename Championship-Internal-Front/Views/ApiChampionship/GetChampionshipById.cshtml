@@ -15,7 +15,7 @@
             <h3 class="card-title">Detalhes do Campeonato</h3>
           </div>
           <div class="card-body">
-          <form asp-controller="ApiChampionship" asp-action="EditChampionship" method="get">
+            <form asp-controller="ApiChampionship"  method="post">
               <div class="form-group">
                 <label for="title">Título</label>
                 @Html.DisplayFor(modelItem => Model.Title)
@@ -36,32 +36,24 @@
                 <label for="winnerid">Times na Competição</label>
                 @Html.DisplayFor(modelItem => Model.Subscription)
               </div>
-              @*<div class="form-group">
-                <label for="secondid">Segundo Lugar</label>
-                <input contenteditable="false" type="text" class="form-control second" value="@Html.DisplayFor(modelItem => Model.Subscriptions)">
-              </div>*@
-              @*<div class="form-group">
-                <label for="thirdid">Terceiro Lugar</label>
-                <input contenteditable="false type="text" class="form-control third" value="@Html.DisplayFor(modelItem => Model.Subscriptions)">
-              </div>*@
-              <div class="col-12" align=right>
-                
-                
-        
-                    <div class="text-right">
-                        <input type="text" Name="championship_id" hidden="hidden" class="form-control" value="@Html.DisplayFor(modelItem => Model.Id)">
-                        <input asp-controller="ApiChampionship" asp-action="EditChampionship" type="submit" value="Editar Campeonato" class="btn btn-warning">
-                        <a asp-controller="ApiChampionship" asp-action="DeleteChampionship" class="btn btn-danger">Deletar Campeonato</a>
-                    </div>
-
-                </form>
-                
+              <div class="col-12" align="right">                
+                <div class="text-right">
+                    <input type="text" Name="id" hidden="hidden" class="form-control" value="@Html.DisplayFor(modelItem => Model.Id)">
+                    <input type="text" Name="title" hidden="hidden" class="form-control" value="@Html.DisplayFor(modelItem => Model.Title)">
+                    <input type="text" Name="description" hidden="hidden" class="form-control" value="@Html.DisplayFor(modelItem => Model.Description)">
+                    <input type="text" Name="startdate" hidden="hidden" class="form-control" value="@Html.DisplayFor(modelItem => Model.StartDate)">
+                    <input type="text" Name="totalphases" hidden="hidden" class="form-control" value="@Html.DisplayFor(modelItem => Model.TotalPhases)">
+                    <input asp-action="EditChampionship" type="submit" value="Editar Campeonato" class="btn btn-warning">
+                    <input asp-action="DeleteChampionship" type="submit" value="Delete Campeonato" class="btn btn-danger">
+                    
+                </div>
               </div>
-        
+            </form>
           </div>
         </div>
       </div>
     </div>
+  </div>
     @foreach (var item in Model.Matchs)
     {
     <div class="row mb-2">
@@ -74,8 +66,7 @@
             <h3 class="card-title">Detalhes da Partida: @Html.DisplayFor(modelItem => item.Name)</h3>
           </div>
           <div class="card-body">
-            
-            <form asp-controller="ApiChampionship" asp-action="AddChampionship" method="post">
+            <form>
               <div class="form-group">
                 <label for="title"> Título do confronto: </label>
                 @Html.DisplayFor(modelItem => item.Name)
@@ -108,6 +99,14 @@
                 <label for="status">Status: </label>
                 @Html.DisplayFor(modelItem => item.Status)
               </div>
+              @if(item.RefereeName == "")
+              {
+                   <div class="text-right">
+                        <input type="text" Name="idMatch" hidden="hidden" class="form-control" value="@Html.DisplayFor(modelItem => item.IdMatch)">
+                        <input asp-controller="ApiUser" asp-action="RefereeList" type="submit" value="Adicionar um Juíz" class="btn btn-warning">
+                    </div>
+              }
+             
             </form>
           </div>
         </div>
@@ -115,17 +114,20 @@
       
     </div>
     }
-    @foreach (var team in Model.Ranking)
+   
+    @if(Model.Ranking.Count() != 0)
     {
-    <div class="row mb-2">
+        <div class="row mb-2">
       <div class="col-lg-6">
         <h1></h1>
         <p></p>
         <div class="card card-info">
           <div class="card-header">
-            <h3 class="card-title">Detalhes do Time - @Html.DisplayFor(modelItem => team.Name)</h3>
+            <h3 class="card-title">Ranking</h3>
           </div>
           <div class="card-body">
+            @foreach (var team in Model.Ranking)
+            {
             <form asp-controller="ApiChampionship" asp-action="AddChampionship" method="post">
               <div class="form-group">
                 <label for="description">Nome do Time</label>
@@ -135,14 +137,15 @@
                 <label for="start_date">Vitórias no Campeonato</label>
                 @Html.DisplayFor(modelItem => team.Wins)
               </div>
-              
             </form>
-        
+            <hr />
+            }
           </div>
           
         </div>
       </div>
     </div>
     }
-  </div>
+    
+
 </section>
