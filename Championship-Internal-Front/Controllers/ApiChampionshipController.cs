@@ -79,8 +79,13 @@ namespace Championship_Internal_Front.Controllers
                                 where matchs.PhaseNumber == i+1
                                 select matchs).ToList());
                     }
-                    ViewBag.MatchList = matchList;
+                    ViewBag.PhaseGroups = new List<List<Match>>();
+                    foreach (List<Match>PhaseGroup in matchList)
+                    {
+                       ViewBag.PhaseGroups.Add(PhaseGroup.ToList());
+                    }
                 }
+                
                 return View(championship);
             }
             catch (Exception ex)

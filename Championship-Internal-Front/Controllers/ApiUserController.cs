@@ -37,8 +37,6 @@ namespace Championship_Internal_Front.Controllers
                 
             }
 
-            //UserServices userService = new(token);
-            //userService.GetByUserId(userId);
 
             client.BaseAddress = new Uri("https://champscoreapi.azurewebsites.net/");
             client.DefaultRequestHeaders.Accept.Add(new
