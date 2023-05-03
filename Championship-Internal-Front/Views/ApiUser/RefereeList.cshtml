@@ -15,7 +15,7 @@
           <p></p>
             <h1>Árbitros</h1>
             <div align="left">
-               <a asp-controller="ApiUser" asp-action="Add" class="btn btn-success">Criar Nova Conta de Árbitro</a>
+               <a asp-controller="ApiUser" asp-action="AddReferee" class="btn btn-success">Criar Nova Conta de Árbitro</a>
            </div>
           </div>
           @*<div class="col-sm-6">
@@ -31,7 +31,7 @@
     <section class="content">
       <!-- Default box -->
       <div class="card card-solid">
-          <form>
+      <form>
       @foreach (var item in Model)
       {
         <div class="card-body pb-0">
@@ -39,12 +39,12 @@
             <div class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch flex-column">
               <div class="card bg-light d-flex flex-fill">
                 <div class="card-header text-muted border-bottom-0">
-                  Nome do Árbitro: @Html.DisplayFor(modelItem => item.Name)
+                  <b>Nome do Árbitro: </b>@Html.DisplayFor(modelItem => item.Name)
                 </div>
                 <div class="card-body pt-0">
                   <div class="row">
                     <div class="col-7">
-                      <h2 class="lead"><b>@Html.DisplayFor(modelItem => item.Age)</b></h2>
+                       <p class="text-muted text-sm"><b>Idade: </b> @Html.DisplayFor(modelItem => item.Age) </p>
                       <p class="text-muted text-sm"><b>Email: </b> @Html.DisplayFor(modelItem => item.Email) </p>
 
                       
@@ -56,7 +56,7 @@
                   </div>
                 </div>
                 <div class="card-footer">
-                  <form asp-controller="ApiUser">
+                  <form>
                   <div class="text-right">
                    <input type="text" Name="idReferee" hidden="hidden" class="form-control" value="@Html.DisplayFor(modelItem => item.Id)">
                     @if(@ViewBag.Id != null)
@@ -64,8 +64,11 @@
                         <input type="text" Name="idMatch" hidden="hidden" class="form-control" value="@ViewBag.Id">
                         <input asp-controller="ApiUser" asp-action="EnlistReferee" type="submit" value="Adicionar ao Campeonato" class="btn btn-warning">
                       }
-
-                      <input asp-controller="ApiUser" asp-action="DeleteUser" type="submit" value="Deletar Árbitro" class="btn btn-danger">
+                    else
+                    {
+                        <input asp-controller="ApiUser" asp-action="DeleteUser" type="submit" value="Deletar Árbitro" class="btn btn-danger">
+                    }
+                      
                     
                   </div>
                   </form>

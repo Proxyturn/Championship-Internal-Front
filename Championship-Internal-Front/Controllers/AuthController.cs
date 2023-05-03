@@ -71,7 +71,6 @@ namespace Championship_Internal_Front.Controllers
             client.BaseAddress = new Uri("https://champscoreapi.azurewebsites.net/");
             client.DefaultRequestHeaders.Accept.Add(new
             MediaTypeWithQualityHeaderValue("application/json"));
-                
             
             string data = JsonConvert.SerializeObject(login);
 

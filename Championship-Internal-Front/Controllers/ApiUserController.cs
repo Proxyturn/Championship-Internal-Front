@@ -90,8 +90,7 @@ namespace Championship_Internal_Front.Controllers
             }
         }
 
-        [HttpPut]
-        public IActionResult EditUser(User myUser)
+        public IActionResult EditUser(EditedUser myUser)
         {
             string token;
             if (Request.Cookies["AuthToken"] == null) return RedirectToAction("login", "Auth");
@@ -108,7 +107,7 @@ namespace Championship_Internal_Front.Controllers
                 HttpContent content = new StringContent(json, Encoding.Unicode, "application/json");
                 HttpResponseMessage response = client.PutAsync($"api/User/Update", content).Result;
                 if (!response.IsSuccessStatusCode) throw new Exception("An error ocurred upon listing");
-                return RedirectToAction("List");
+                return RedirectToAction("MyProfile");
             }
             catch (Exception ex)
             {
@@ -118,7 +117,7 @@ namespace Championship_Internal_Front.Controllers
 
         [HttpGet]
         [Route("Referees")]
-        public async Task<IActionResult> RefereeList(string? id = null)
+        public async Task<IActionResult> RefereeList(string? idMatch = null)
         {
             if (Request.Cookies["AuthToken"] == null) return RedirectToAction("login", "Auth");
             string token = Request.Cookies["AuthToken"];
@@ -127,12 +126,11 @@ namespace Championship_Internal_Front.Controllers
             client.DefaultRequestHeaders.Accept.Add(new
                 MediaTypeWithQualityHeaderValue("application/json"));
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-
             try
             {
                 HttpResponseMessage response = client.GetAsync($"getByType/{Enums.UserEnum.Referee}").Result;
                 if (!response.IsSuccessStatusCode) throw new Exception("An error ocurred upon listing");
-                if (id != null) ViewBag.Id = id;
+                if (idMatch != null) ViewBag.Id = idMatch;
                 var listReferee = await response.Content.ReadAsAsync<User[]>();
                 return View(listReferee.ToList());
             }
@@ -142,15 +140,14 @@ namespace Championship_Internal_Front.Controllers
             }
         }
 
-
-        public IActionResult Add()
+        [Route("NewReferee")]
+        public IActionResult AddReferee()
         {
             return View();
         }
 
-        [HttpPost]
-        [Route("NewReferee")]
-        public async Task<IActionResult> AddReferee(NewUser user)
+
+        public async Task<IActionResult> SubmitReferee(NewUser user)
         {
             try
             {
@@ -163,7 +160,7 @@ namespace Championship_Internal_Front.Controllers
 
                 HttpContent content = new StringContent(json, Encoding.Unicode, "application/json");
 
-                var response = await client.PostAsync("api/user", content);
+                var response = await client.PostAsync("api/user/register", content);
                 if (!response.IsSuccessStatusCode)
                 {
                     string error = $"{response.StatusCode} - {response.ReasonPhrase}";
@@ -191,13 +188,15 @@ namespace Championship_Internal_Front.Controllers
                     MediaTypeWithQualityHeaderValue("application/json"));
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
-                var response = await client.DeleteAsync($"api/Championship");
-                if (response.IsSuccessStatusCode) return RedirectToAction("List");
-                else
+                string json = JsonConvert.SerializeObject(referee_match);
+                HttpContent content = new StringContent(json, Encoding.Unicode, "application/json");
+                HttpResponseMessage response = client.PutAsync($"atributteReferee", content).Result;
+                if (!response.IsSuccessStatusCode)
                 {
                     string error = $"{response.StatusCode} - {response.ReasonPhrase}";
                     throw new Exception(error);
                 }
+                return RedirectToAction("RefereeList");
             }
             catch (Exception ex)
             {

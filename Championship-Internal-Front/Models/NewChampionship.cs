@@ -7,7 +7,7 @@ namespace Championship_Internal_Front.Models
         public Guid? Id { get; set; } = null;
         public string? Title { get; set; }
         public string? Description { get; set; }
-        public string? StartDate { get; set; }
+        public DateTime? StartDate { get; set; }
         public int TotalPhases { get; set; }
     }
 }

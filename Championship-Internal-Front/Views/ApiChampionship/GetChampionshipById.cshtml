@@ -43,9 +43,16 @@
                     <input type="text" Name="description" hidden="hidden" class="form-control" value="@Html.DisplayFor(modelItem => Model.Description)">
                     <input type="text" Name="startdate" hidden="hidden" class="form-control" value="@Html.DisplayFor(modelItem => Model.StartDate)">
                     <input type="text" Name="totalphases" hidden="hidden" class="form-control" value="@Html.DisplayFor(modelItem => Model.TotalPhases)">
+                    @if(Model.Status == Championship_Internal_Front.Enums.ChampionshipStatusEnum.Created)
+                    {
+                        <input asp-action="StartChampionship" type="submit" value="Começar o Campeonato" class="btn btn-success">
+                    }
+                    else if(Model.Status == Championship_Internal_Front.Enums.ChampionshipStatusEnum.OnGoing)
+                    {
+                        <input asp-action="EndChampionship" type="submit" value="Finalizar o Campeonato" class="btn btn-danger">
+                    }
                     <input asp-action="EditChampionship" type="submit" value="Editar Campeonato" class="btn btn-warning">
                     <input asp-action="DeleteChampionship" type="submit" value="Delete Campeonato" class="btn btn-danger">
-                    
                 </div>
               </div>
             </form>
@@ -54,6 +61,7 @@
       </div>
     </div>
   </div>
+    
     @foreach (var item in Model.Matchs)
     {
     <div class="row mb-2">
@@ -99,7 +107,7 @@
                 <label for="status">Status: </label>
                 @Html.DisplayFor(modelItem => item.Status)
               </div>
-              @if(item.RefereeName == "")
+              @if(item.RefereeName == "Sem juíz atribuido")
               {
                    <div class="text-right">
                         <input type="text" Name="idMatch" hidden="hidden" class="form-control" value="@Html.DisplayFor(modelItem => item.IdMatch)">
@@ -149,3 +157,67 @@
     
 
 </section>
+
+ @*             @for(int i = 0; i < @ViewBag.MatchList.Count(); i++)
+    {
+      foreach(var item in @ViewBag.MatchList[i ])
+      {
+            <div class="row mb-2">
+      
+        <div class="col-lg-6">
+        <h1></h1>
+        <p></p>
+        <div class="card card-info">
+          <div class="card-header">
+            <h3 class="card-title">Detalhes da Partida: item.Name</h3>
+          </div>
+          <div class="card-body">
+            <form>
+              <div class="form-group">
+                <label for="title"> Título do confronto: </label>
+                item.Name
+              </div>
+              <div class="form-group">
+                <label for="description">Nome do Árbitro: </label>
+                item.RefereeName
+              </div>
+              <div class="form-group">
+                <label for="start_date">Data de Início</label>
+              item.StartDate
+              </div>
+              <div class="form-group">
+                <label for="total_phases">Total de Tickets para Venda: </label>
+                item.TotalTickets
+              </div>
+              <div class="form-group">
+                <label for="winnerid">Tickets Vendidos: </label>
+                item.SoldTickets
+              </div>
+              <div class="form-group">
+                <label for="timea">Time A: </label>
+                item.TeamAName
+              </div>
+              <div class="form-group">
+                <label for="timeb">Time B: </label>
+                item.TeamBName
+              </div>
+              <div class="form-group">
+                <label for="status">Status: </label>
+                item.Status
+              </div>
+              @if(item.RefereeName == "Sem juíz atribuido")
+              {
+                   <div class="text-right">
+                        <input type="text" Name="idMatch" hidden="hidden" class="form-control" value="item.IdMatch">
+                        <input asp-controller="ApiUser" asp-action="RefereeList" type="submit" value="Adicionar um Juíz" class="btn btn-warning">
+                    </div>
+              }
+             
+            </form>
+          </div>
+        </div>
+      </div>
+      
+      </div>
+        }
+    }*@

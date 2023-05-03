@@ -22,7 +22,10 @@
             </div>*@
           </div>
           <div class="card-body">
-            <form asp-controller="ApiChampionship" asp-action="SubmitChampionship"  method="put">
+            <form asp-controller="ApiChampionship" asp-action="SubmitChampionship">
+              <div class="form-group">
+                <input type="text" Name="id" hidden="hidden"  class="form-control" value="@Html.DisplayFor(modelItem => Model.Id)">
+              </div>
               <div class="form-group">
                 <label for="inputTitulo">Título</label>
                 <input type="text" Name="Title"  class="form-control" value="@Html.DisplayFor(modelItem => Model.Title)">
