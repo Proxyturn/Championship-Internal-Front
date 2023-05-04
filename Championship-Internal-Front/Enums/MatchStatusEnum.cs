@@ -2,8 +2,8 @@
 {
     public enum MatchStatusEnum
     {
-        Criada,
-        Ocorrendo,
-        Terminada
+        Created,
+        OnGoing,
+        Finished
     }
 }

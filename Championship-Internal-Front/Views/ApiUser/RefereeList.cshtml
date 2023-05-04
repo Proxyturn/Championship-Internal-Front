@@ -30,23 +30,22 @@
     <!-- Main content -->
     <section class="content">
       <!-- Default box -->
-      <div class="card card-solid">
       <form>
-      <div class="card-body pb-0">
+
         <div class="row">
       @foreach (var item in Model)
       {
         
-            <div class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch flex-column">
+            <div class=" mb-2 col-12 col-sm-6 col-md-4 d-flex align-items-stretch flex-column">
               <div class="card bg-light d-flex flex-fill">
-                <div class="card-header text-muted border-bottom-0">
+                <div class="card-header text-muted border-bottom-2">
                   <b>Nome do Árbitro: </b>@Html.DisplayFor(modelItem => item.Name)
                 </div>
                 <div class="card-body pt-0">
                   <div class="row">
                     <div class="col-7">
-                       <p class="text-muted text-sm"><b>Idade: </b> @Html.DisplayFor(modelItem => item.Age) </p>
-                      <p class="text-muted text-sm"><b>Email: </b> @Html.DisplayFor(modelItem => item.Email) </p>
+                       <p class=" mt-2 text-muted text-sm"><b>Idade: </b> @Html.DisplayFor(modelItem => item.Age) </p>
+                       <p class=" mt-2 text-muted text-sm"><b>Email: </b> @Html.DisplayFor(modelItem => item.Email) </p>
 
                       
                     @*<ul class="ml-4 mb-10 fa-ul text-muted">
@@ -79,32 +78,21 @@
           
       }
       </div>
-      </div>
       </form>
         <!-- /.card-body -->
-        <div class="card-footer">
-          <nav aria-label="Contacts Page Navigation">
-            <ul class="pagination justify-content-center m-0">
-              <li class="page-item active"><a class="page-link" href="#">1</a></li>
-              <li class="page-item"><a class="page-link" href="#">2</a></li>
-              <li class="page-item"><a class="page-link" href="#">3</a></li>
-              <li class="page-item"><a class="page-link" href="#">4</a></li>
-              <li class="page-item"><a class="page-link" href="#">5</a></li>
-              <li class="page-item"><a class="page-link" href="#">6</a></li>
-              <li class="page-item"><a class="page-link" href="#">7</a></li>
-              <li class="page-item"><a class="page-link" href="#">8</a></li>
-            </ul>
-          </nav>
-        </div>
+     
         <!-- /.card-footer -->
-      </div>
       <!-- /.card -->
 
     </section>
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
-
+  @*<style>
+    .mb-2 {
+        margin-bottom: 5px;
+    }
+  </style>*@
 @*<p>
     <a asp-action="Create">Create New</a>
 </p>

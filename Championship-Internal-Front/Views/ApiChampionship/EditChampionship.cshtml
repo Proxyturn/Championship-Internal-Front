@@ -4,8 +4,74 @@
     ViewData["Title"] = "EditChampionship";
 }
 
+<div class="login-page bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-7 offset-lg-1">
+                <h3 class="mb-3">Edição do Campeonato</h3>
+                <div class="bg-white shadow rounded">
+                    <div class="row">
+                        <div class="pe-0">
+                            <div class="form-left h-100 py-5 px-5">
+                                <form asp-controller="ApiChampionship" asp-action="SubmitChampionship" class="row g-4">
+                                    <div class="col-12">
+                                        <label>Title<span class="text-danger">*</span></label>
+                                        <div class="input-group">
+                                            <input asp-for="Id" hidden="hidden" class="form-control" />
+                                            <div class="input-group-text"><i class="bi bi-trophy"></i></div>
+                                            <input asp-for="Title" type="text" Name="Title" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <label>Descrição<span class="text-danger">*</span></label>
+                                        <div class="input-group">
+                                            <div class="input-group-text"><i class="bi bi-card-text"></i></div>
+                                            <textarea type="text" Name="Description" class="form-control" rows="4">@Html.DisplayFor(modelItem => Model.Description)</textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <label>Data de Início<span class="text-danger">*</span></label>
+                                        <div class="input-group">
+                                            <div class="input-group-text"><i class="bi bi-calendar" ></i></div>
+                                            <input input type="text" Name="StartDate" class="form-control" value="@Html.DisplayFor(modelItem => Model.StartDate)">
+                                            <input hidden="hidden" type="text" Name="TotalPhases" class="form-control" value="@Html.DisplayFor(modelItem => Model.TotalPhases)">
+                                        </div>
+                                    </div>
 
-<!-- Main content -->
+                                    <div class="col-12">
+                                        <button type="submit" value="SubmitChampionship" class="btn btn-success px-4 float-end mt-4">Confirmar Edição</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<style>
+    a {
+        text-decoration: none;
+    }
+
+    .login-page {
+        width: 100%;
+        height: 100vh;
+        display: inline-block;
+        display: flex;
+        align-items: center;
+    }
+
+    .form-right i {
+        font-size: 100px;
+    }
+</style>
+
+@*<!-- Main content -->
 <section class="content-wrapper">
   <div class="container-fluid">
     <div class="row">
@@ -15,11 +81,6 @@
         <div class="card card-primary">
           <div class="card-header">
             <h3 class="card-title">Edição do Campeonato</h3>
-            @*<div class="card-tools">
-              <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
-                <i class="fas fa-minus"></i>
-              </button>
-            </div>*@
           </div>
           <div class="card-body">
             <form asp-controller="ApiChampionship" asp-action="SubmitChampionship">
@@ -60,4 +121,4 @@
         <!-- /.card -->
     </div>
   </div>
-</section>
+</section>*@

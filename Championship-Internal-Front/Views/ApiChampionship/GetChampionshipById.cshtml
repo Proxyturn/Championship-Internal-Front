@@ -6,140 +6,181 @@
 
 <section class="content-wrapper">
   <div class="container-fluid">
-    <div class="row">
+    <div class="align-content-center">
       <div class="col-lg-6">
         <h1></h1>
         <p></p>
-        <div class="card card-info">
-          <div class="card-header">
-            <h3 class="card-title">Detalhes do Campeonato</h3>
-          </div>
-          <div class="card-body">
-          @if(Model.Status == Championship_Internal_Front.Enums.ChampionshipStatusEnum.Finished)
-          {
-                        
-                <div class="ribbon-wrapper ribbon-lg">
-                  <div class="ribbon bg-danger text-lg">
-                    Finalizado
-                  </div>
-                </div>
-          }
-          
-              <div class="row">
-              @*<div  align="center">*@
-            <form asp-controller="ApiChampionship"  method="post">
-              <div class="form-group">
-                <label for="title">Título</label>
-                @Html.DisplayFor(modelItem => Model.Title)
-              </div>
-              <div class="form-group">
-                <label for="description">Descrição</label>
-                @Html.DisplayFor(modelItem => Model.Description)
-              </div>
-              <div class="form-group">
-                <label for="start_date">Data de Início</label>
-                @Html.DisplayFor(modelItem => Model.StartDate)
-              </div>
-              <div class="form-group">
-                <label for="total_phases">Data de Fim</label>
-                @Html.DisplayFor(modelItem => Model.EndDate)
-              </div>
-              <div class="form-group">
-                <label for="winnerid">Times na Competição</label>
-                @Html.DisplayFor(modelItem => Model.Subscription)
-              </div>
-              <div class="col-12" align="right">                
-                <div class="text-right">
-                    <input type="text" Name="id" hidden="hidden" class="form-control" value="@Html.DisplayFor(modelItem => Model.Id)">
-                    <input type="text" Name="title" hidden="hidden" class="form-control" value="@Html.DisplayFor(modelItem => Model.Title)">
-                    <input type="text" Name="description" hidden="hidden" class="form-control" value="@Html.DisplayFor(modelItem => Model.Description)">
-                    <input type="text" Name="startdate" hidden="hidden" class="form-control" value="@Html.DisplayFor(modelItem => Model.StartDate)">
-                    <input type="text" Name="totalphases" hidden="hidden" class="form-control" value="@Html.DisplayFor(modelItem => Model.TotalPhases)">
-                    @if(Model.Status == Championship_Internal_Front.Enums.ChampionshipStatusEnum.Created)
-                    {
-                        <input asp-action="StartChampionship" type="submit" value="Começar o Campeonato" class="btn btn-success">
-                    }
-                    else if(Model.Status == Championship_Internal_Front.Enums.ChampionshipStatusEnum.OnGoing)
-                    {
-                        <input asp-action="EndChampionship" type="submit" value="Finalizar o Campeonato" class="btn btn-danger">
-                    }
-                    <input asp-action="EditChampionship" type="submit" value="Editar Campeonato" class="btn btn-warning">
-                    <input asp-action="DeleteChampionship" type="submit" value="Deletar Campeonato" class="btn btn-danger">
-                </div>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
-    </div>
-    </div>
-   <div class="card-body pb-0">
-    <div class="row">
-    @foreach (var item in Model.Matchs)
-    {
-        <div class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch flex-column">
-        <h1></h1>
-        <p></p>
-        <div class="card card-info">
-          <div class="card-header">
-            <h3 class="card-title">Detalhes da Partida: @Html.DisplayFor(modelItem => item.Name)</h3>
-          </div>
-          <div class="card-body">
-            <form>
-              <div class="form-group">
-                <label for="title"> Título do confronto: </label>
-                @Html.DisplayFor(modelItem => item.Name)
-              </div>
-              <div class="form-group">
-                <label for="description">Nome do Árbitro: </label>
-                @Html.DisplayFor(modelItem => item.RefereeName)
-              </div>
-              <div class="form-group">
-                <label for="start_date">Data de Início</label>
-                @Html.DisplayFor(modelItem => item.StartDate)
-              </div>
-              <div class="form-group">
-                <label for="total_phases">Total de Tickets para Venda: </label>
-                @Html.DisplayFor(modelItem => item.TotalTickets)
-              </div>
-              <div class="form-group">
-                <label for="winnerid">Tickets Vendidos: </label>
-                @Html.DisplayFor(modelItem => item.SoldTickets)
-              </div>
-              <div class="form-group">
-                <label for="timea">Time A: </label>
-                @Html.DisplayFor(modelItem => item.TeamAName)
-              </div>
-              <div class="form-group">
-                <label for="timeb">Time B: </label>
-                @Html.DisplayFor(modelItem => item.TeamBName)
-              </div>
-              <div class="form-group">
-                <label for="status">Status: </label>
-                @Html.DisplayFor(modelItem => item.Status)
-                @if(item.RefereeName == "Sem juíz atribuido")
-              {
-                   <div align="right">
-                        <input type="text" Name="idMatch" hidden="hidden" class="form-control" value="@Html.DisplayFor(modelItem => item.IdMatch)">
-                        <input asp-controller="ApiUser" asp-action="RefereeList" type="submit" value="Adicionar um Juíz" class="btn btn-warning">
+                <form asp-controller="ApiChampionship" asp-action="GetChampionshipById" method="get">
+                    <div class="card shadow-lg p-3 mb-5 bg-body rounded bg-light mb-3" style="width: 55rem;">
+                       
+                        <div class="card-header align-content-md-stretch">
+                            <b>Campeonato:</b> @Html.DisplayFor(modelItem => Model.Title)@if (Model.Status == Championship_Internal_Front.Enums.ChampionshipStatusEnum.OnGoing)
+                            {
+                                <span class="badge bg-info">Ocorrendo</span>
+                            }
+                            else if (Model.Status == Championship_Internal_Front.Enums.ChampionshipStatusEnum.Finished)
+                            {
+                                <span class="badge bg-danger">Finalizado</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-success">Aberto</span>
+                            }
+
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><b>Descrição:</b> @Html.DisplayFor(modelItem => Model.Description)</li>
+                            <li class="list-group-item"><b>Data de Início:</b> @Html.DisplayFor(modelItem => Model.StartDate)</li>
+                            <li class="list-group-item"><b>Total de Fases:</b> @Html.DisplayFor(modelItem => Model.TotalPhases)</li>
+                            <li class="list-group-item"><b>Times na Competição:</b> @Html.DisplayFor(modelItem => Model.Subscription)</li>
+                        </ul>
+                            <div class="card-body" align="right">
+                              <div class="col-12" align="right">
+                                <div class="text-right">
+                                    <input type="text" Name="id" hidden="hidden" class="form-control" value="@Html.DisplayFor(modelItem => Model.Id)">
+                                    <input type="text" Name="title" hidden="hidden" class="form-control" value="@Html.DisplayFor(modelItem => Model.Title)">
+                                    <input type="text" Name="description" hidden="hidden" class="form-control" value="@Html.DisplayFor(modelItem => Model.Description)">
+                                    <input type="text" Name="startdate" hidden="hidden" class="form-control" value="@Html.DisplayFor(modelItem => Model.StartDate)">
+                                    <input type="text" Name="totalphases" hidden="hidden" class="form-control" value="@Html.DisplayFor(modelItem => Model.TotalPhases)">
+                                    @if (Model.Status == Championship_Internal_Front.Enums.ChampionshipStatusEnum.Created)
+                                    {
+                                        <input asp-action="StartChampionship" type="submit" value="Começar o Campeonato" class="btn btn-success">
+                                    }
+                                    else if (Model.Status == Championship_Internal_Front.Enums.ChampionshipStatusEnum.OnGoing)
+                                    {
+                                        <input asp-action="EndChampionship" type="submit" value="Finalizar o Campeonato" class="btn btn-danger">
+                                    }
+                                    <input asp-action="EditChampionship" type="submit" value="Editar Campeonato" class="btn btn-warning">
+                                    <input asp-action="DeleteChampionship" type="submit" value="Deletar Campeonato" class="btn btn-danger">
+                                </div>
+                              </div>
+                            </div>
+
+
+
                     </div>
-              }
-              </div>
-              
-             
-            </form>
-          </div>
-        </div>
+
+                </form>
       </div>
-      
-    
-    }
-   </div>
-   </div>
+    </div>
+   
+                <div id="carouselExampleControlsNoTouching" class="carousel slide" data-bs-touch="false" data-bs-interval="false">
+                    <div class="carousel-inner">
+                @for (int i=0; i < Model.Matchs.Count();i++)
+                {   if(i == 0)
+                    {
+                        <div class="carousel-item active">
+                            <form>
+                                <div class="card">
+                                    <div class="card-header">
+                                        <b>Partida: </b> @Html.DisplayFor(modelItem => Model.Matchs[i].Name)@if (Model.Matchs[i].Status == Championship_Internal_Front.Enums.MatchStatusEnum.OnGoing)
+                                        {
+                                            <span class="badge bg-info">Ocorrendo</span>
+                                        }
+                                        else if (Model.Matchs[i].Status == Championship_Internal_Front.Enums.MatchStatusEnum.Finished)
+                                        {
+                                            <span class="badge bg-danger">Finalizado</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge bg-success">Aberto</span>
+                                        }
+                                    </div>
+                                    <ul class="list-group list-group-flush">
+                                        <li class="list-group-item"><b>Data de Início:</b> @Html.DisplayFor(modelItem => Model.Matchs[i].StartDate)</li>
+                                        <li class="list-group-item"><b>Fase do Campeonato:</b> @Html.DisplayFor(modelItem => Model.Matchs[i].PhaseNumber)</li>
+                                        <li class="list-group-item"><b>Nome do Juíz:</b> @Html.DisplayFor(modelItem => Model.Matchs[i].RefereeName)</li>
+                                        <li class="list-group-item"><b>Total de Ingressos:</b> @Html.DisplayFor(modelItem => Model.Matchs[i].TotalTickets)</li>
+                                        <li class="list-group-item"><b>Ingressos Vendidos:</b> @Html.DisplayFor(modelItem => Model.Matchs[i].SoldTickets)</li>
+                                        <li class="list-group-item"><b>Time A:</b> @Html.DisplayFor(modelItem => Model.Matchs[i].TeamAName)</li>
+                                        <li class="list-group-item"><b>Time B:</b> @Html.DisplayFor(modelItem => Model.Matchs[i].TeamBName)</li>
+                                        <li class="list-group-item"><b>Status da Partida:</b> @Html.DisplayFor(modelItem => Model.Matchs[i].Status)</li>
+                                    </ul>
+                                    <div class="card-body" align="right">
+                                        <div class="text-right">
+                                            @if (Model.Matchs[i].RefereeName == "Sem juíz atribuido")
+                                            {
+                                                <div align="right">
+                                                    <input type="text" Name="idMatch" hidden="hidden" class="form-control" value="@Html.DisplayFor(modelItem => Model.Matchs[i].IdMatch)">
+                                                    <input asp-controller="ApiUser" asp-action="RefereeList" type="submit" value="Adicionar um Juíz" class="btn btn-warning">
+                                                </div>
+                                            }
+                                        </div>
+                                    </div>
+
+
+                                </div>
+
+                            </form>
+
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="carousel-item">
+                            <form>
+                                <div class="card">
+                                    <div class="card-header">
+                                        <b>Partida: </b> @Html.DisplayFor(modelItem => Model.Matchs[i].Name)@if (Model.Matchs[i].Status == Championship_Internal_Front.Enums.MatchStatusEnum.OnGoing)
+                                        {
+                                            <span class="badge bg-info">Ocorrendo</span>
+                                        }
+                                        else if (Model.Matchs[i].Status == Championship_Internal_Front.Enums.MatchStatusEnum.Finished)
+                                        {
+                                            <span class="badge bg-danger">Finalizado</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge bg-success">Aberto</span>
+                                        }
+                                    </div>
+                                    <ul class="list-group list-group-flush">
+                                        <li class="list-group-item"><b>Data de Início:</b> @Html.DisplayFor(modelItem => Model.Matchs[i].StartDate)</li>
+                                        <li class="list-group-item"><b>Fase do Campeonato:</b> @Html.DisplayFor(modelItem => Model.Matchs[i].PhaseNumber)</li>
+                                        <li class="list-group-item"><b>Nome do Juíz:</b> @Html.DisplayFor(modelItem => Model.Matchs[i].RefereeName)</li>
+                                        <li class="list-group-item"><b>Total de Ingressos:</b> @Html.DisplayFor(modelItem => Model.Matchs[i].TotalTickets)</li>
+                                        <li class="list-group-item"><b>Ingressos Vendidos:</b> @Html.DisplayFor(modelItem => Model.Matchs[i].SoldTickets)</li>
+                                        <li class="list-group-item"><b>Time A:</b> @Html.DisplayFor(modelItem => Model.Matchs[i].TeamAName)</li>
+                                        <li class="list-group-item"><b>Time B:</b> @Html.DisplayFor(modelItem => Model.Matchs[i].TeamBName)</li>
+                                        <li class="list-group-item"><b>Status da Partida:</b> @Html.DisplayFor(modelItem => Model.Matchs[i].Status)</li>
+                                    </ul>
+                                    <div class="card-body" align="right">
+                                        <div class="text-right">
+                                            @if (Model.Matchs[i].RefereeName == "Sem juíz atribuido")
+                                            {
+                                                <div align="right">
+                                                    <input type="text" Name="idMatch" hidden="hidden" class="form-control" value="@Html.DisplayFor(modelItem => Model.Matchs[i].IdMatch)">
+                                                    <input asp-controller="ApiUser" asp-action="RefereeList" type="submit" value="Adicionar um Juíz" class="btn btn-warning">
+                                                </div>
+                                            }
+                                        </div>
+                                    </div>
+
+
+                                </div>
+
+                            </form>
+
+                        </div>
+                    }
+                    
+                }
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControlsNoTouching" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControlsNoTouching" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+        
+
     @if(Model.Ranking.Count() != 0)
     {
-        <div class="row mb-2">
+      <div class="align-content-center" align="center">
+        
       <div class="col-lg-6">
         <h1></h1>
         <p></p>
@@ -166,7 +207,7 @@
           
         </div>
       </div>
-    </div>
+            </div>
     }
   </div>
 </section>

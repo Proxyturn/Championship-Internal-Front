@@ -4,7 +4,59 @@
     ViewData["Title"] = "AddReferee";
 }
 
-<section class="content-wrapper">
+<div class="login-page bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-7 offset-lg-1">
+                <h3 class="mb-3">Dados do Novo Árbitro</h3>
+                <div class="bg-white shadow rounded">
+                    <div class="row">
+                        <div class="pe-0">
+                            <div class="form-left h-100 py-5 px-5">
+                                <form asp-controller="ApiUser" asp-action="SubmitReferee" method="post" class="row g-4">
+                                    <div class="col-12">
+                                        <label>Nome<span class="text-danger">*</span></label>
+                                        <div class="input-group">
+                                            <div class="input-group-text"><i class="bi bi-person-fill"></i></div>
+                                            <input type="text" Name="Name" class="form-control" placeholder="Nome Completo">
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <label>Idade<span class="text-danger">*</span></label>
+                                        <div class="input-group">
+                                            <div class="input-group-text"><i class="bi bi-person-fill"></i></div>
+                                            <input type="number" Name="Age" class="form-control" placeholder="Idade">
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <label>Email<span class="text-danger">*</span></label>
+                                        <div class="input-group">
+                                            <div class="input-group-text"><i class="bi bi-envelope-fill"></i></div>
+                                            <input type="email" Name="Email" class="form-control" placeholder="Email">
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <label>Senha<span class="text-danger">*</span></label>
+                                        <div class="input-group">
+                                            <div class="input-group-text"><i class="bi bi-person-lock"></i></div>
+                                            <input type="password" Name="Password" class="form-control" placeholder="Senha">
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <button type="submit" value="newReferee" class="btn btn-primary px-4 float-end mt-4">Criar Árbitro</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*<section class="content-wrapper">
   <div class="container-fluid">
     <div class="row">
       <div class="col-md-6">
@@ -13,11 +65,6 @@
         <div class="card card-primary">
           <div class="card-header">
             <h3 class="card-title">Dados do Novo Árbitro</h3>
-            @*<div class="card-tools">
-              <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
-                <i class="fas fa-minus"></i>
-              </button>
-            </div>*@
           </div>
           <div class="card-body">
             <form asp-controller="ApiUser" asp-action="SubmitReferee">
@@ -56,7 +103,7 @@
         <!-- /.card -->
     </div>
   </div>
-</section>
+</section>*@
 
 
 @section Scripts {
