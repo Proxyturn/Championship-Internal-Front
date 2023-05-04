@@ -44,7 +44,7 @@
                 <div class="card-header">
                                     <b>Campeonato:</b> @Html.DisplayFor(modelItem => item.Title)@if (item.Status == Championship_Internal_Front.Enums.ChampionshipStatusEnum.OnGoing)
                                     {
-                                        <span class="badge bg-info">Ocorrendo</span>
+                                        <span class="badge bg-warning">Ocorrendo</span>
                                     }
                                     else if (item.Status == Championship_Internal_Front.Enums.ChampionshipStatusEnum.Finished)
                                     {

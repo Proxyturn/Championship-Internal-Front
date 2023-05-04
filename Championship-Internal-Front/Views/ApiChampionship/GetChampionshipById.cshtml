@@ -16,7 +16,7 @@
                         <div class="card-header align-content-md-stretch">
                             <b>Campeonato:</b> @Html.DisplayFor(modelItem => Model.Title)@if (Model.Status == Championship_Internal_Front.Enums.ChampionshipStatusEnum.OnGoing)
                             {
-                                <span class="badge bg-info">Ocorrendo</span>
+                                <span class="badge bg-warning">Ocorrendo</span>
                             }
                             else if (Model.Status == Championship_Internal_Front.Enums.ChampionshipStatusEnum.Finished)
                             {
@@ -48,9 +48,9 @@
                                     }
                                     else if (Model.Status == Championship_Internal_Front.Enums.ChampionshipStatusEnum.OnGoing)
                                     {
-                                        <input asp-action="EndChampionship" type="submit" value="Finalizar o Campeonato" class="btn btn-danger">
+                                        <input asp-action="EndChampionship" type="submit" value="Finalizar o Campeonato" class="btn btn-warning">
                                     }
-                                    <input asp-action="EditChampionship" type="submit" value="Editar Campeonato" class="btn btn-warning">
+                                    <input asp-action="EditChampionship" type="submit" value="Editar Campeonato" class="btn btn-primary">
                                     <input asp-action="DeleteChampionship" type="submit" value="Deletar Campeonato" class="btn btn-danger">
                                 </div>
                               </div>
@@ -64,7 +64,7 @@
       </div>
     </div>
    
-                <div id="carouselExampleControlsNoTouching" class="carousel slide" data-bs-touch="false" data-bs-interval="false">
+                <div id="carouselExampleControlsNoTouching" class="carousel slide" data-bs-touch="true" data-bs-interval="false">
                     <div class="carousel-inner">
                 @for (int i=0; i < Model.Matchs.Count();i++)
                 {   if(i == 0)
@@ -75,7 +75,7 @@
                                     <div class="card-header">
                                         <b>Partida: </b> @Html.DisplayFor(modelItem => Model.Matchs[i].Name)@if (Model.Matchs[i].Status == Championship_Internal_Front.Enums.MatchStatusEnum.OnGoing)
                                         {
-                                            <span class="badge bg-info">Ocorrendo</span>
+                                            <span class="badge bg-warning">Ocorrendo</span>
                                         }
                                         else if (Model.Matchs[i].Status == Championship_Internal_Front.Enums.MatchStatusEnum.Finished)
                                         {
@@ -94,19 +94,17 @@
                                         <li class="list-group-item"><b>Ingressos Vendidos:</b> @Html.DisplayFor(modelItem => Model.Matchs[i].SoldTickets)</li>
                                         <li class="list-group-item"><b>Time A:</b> @Html.DisplayFor(modelItem => Model.Matchs[i].TeamAName)</li>
                                         <li class="list-group-item"><b>Time B:</b> @Html.DisplayFor(modelItem => Model.Matchs[i].TeamBName)</li>
-                                        <li class="list-group-item"><b>Status da Partida:</b> @Html.DisplayFor(modelItem => Model.Matchs[i].Status)</li>
-                                    </ul>
-                                    <div class="card-body" align="right">
-                                        <div class="text-right">
-                                            @if (Model.Matchs[i].RefereeName == "Sem juíz atribuido")
+                                        <li class="list-group-item">
+                                            <b>Status da Partida:</b> @if (Model.Matchs[i].RefereeName == "Sem juíz atribuido")
                                             {
                                                 <div align="right">
                                                     <input type="text" Name="idMatch" hidden="hidden" class="form-control" value="@Html.DisplayFor(modelItem => Model.Matchs[i].IdMatch)">
                                                     <input asp-controller="ApiUser" asp-action="RefereeList" type="submit" value="Adicionar um Juíz" class="btn btn-warning">
                                                 </div>
                                             }
-                                        </div>
-                                    </div>
+                                </li>
+                                    </ul>
+                                   
 
 
                                 </div>
@@ -123,7 +121,7 @@
                                     <div class="card-header">
                                         <b>Partida: </b> @Html.DisplayFor(modelItem => Model.Matchs[i].Name)@if (Model.Matchs[i].Status == Championship_Internal_Front.Enums.MatchStatusEnum.OnGoing)
                                         {
-                                            <span class="badge bg-info">Ocorrendo</span>
+                                            <span class="badge bg-warning">Ocorrendo</span>
                                         }
                                         else if (Model.Matchs[i].Status == Championship_Internal_Front.Enums.MatchStatusEnum.Finished)
                                         {
@@ -142,21 +140,17 @@
                                         <li class="list-group-item"><b>Ingressos Vendidos:</b> @Html.DisplayFor(modelItem => Model.Matchs[i].SoldTickets)</li>
                                         <li class="list-group-item"><b>Time A:</b> @Html.DisplayFor(modelItem => Model.Matchs[i].TeamAName)</li>
                                         <li class="list-group-item"><b>Time B:</b> @Html.DisplayFor(modelItem => Model.Matchs[i].TeamBName)</li>
-                                        <li class="list-group-item"><b>Status da Partida:</b> @Html.DisplayFor(modelItem => Model.Matchs[i].Status)</li>
-                                    </ul>
-                                    <div class="card-body" align="right">
-                                        <div class="text-right">
-                                            @if (Model.Matchs[i].RefereeName == "Sem juíz atribuido")
+                                        <li class="list-group-item">
+                                            <b>Status da Partida:</b> @if (Model.Matchs[i].RefereeName == "Sem juíz atribuido")
                                             {
-                                                <div align="right">
+                                                <div align="center">
                                                     <input type="text" Name="idMatch" hidden="hidden" class="form-control" value="@Html.DisplayFor(modelItem => Model.Matchs[i].IdMatch)">
                                                     <input asp-controller="ApiUser" asp-action="RefereeList" type="submit" value="Adicionar um Juíz" class="btn btn-warning">
                                                 </div>
                                             }
-                                        </div>
-                                    </div>
-
-
+                                        </li>
+                                    </ul>
+                                   
                                 </div>
 
                             </form>
@@ -167,11 +161,11 @@
                 }
                     </div>
                     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControlsNoTouching" data-bs-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span style="background-color : black" class="carousel-control-prev-icon" aria-hidden="false"></span>
                         <span class="visually-hidden">Previous</span>
                     </button>
                     <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControlsNoTouching" data-bs-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span style="background-color : black" class="carousel-control-next-icon" aria-hidden="false"></span>
                         <span class="visually-hidden">Next</span>
                     </button>
                 </div>
